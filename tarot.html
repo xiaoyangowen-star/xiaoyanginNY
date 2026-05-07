@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>✨ Money and Rich ✨</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+        
+        body {
+            background: #1a0a2e;
+            position: relative;
+        }
+        
+        /* 背景图片 */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/tarot-bg.jpg') center/cover no-repeat;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        
+        /* 神秘渐变覆盖 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(138, 43, 226, 0.3) 0%, 
+                rgba(26, 10, 46, 0.8) 70%, 
+                rgba(10, 5, 20, 0.95) 100%);
+            z-index: 2;
+        }
+        
+        /* 闪烁星星 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* 漂浮的神秘符号 */
+        .symbols {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            pointer-events: none;
+        }
+        
+        .symbol {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 215, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* 塔罗牌装饰 */
+        .cards-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .tarot-card {
+            position: absolute;
+            width: 80px;
+            height: 140px;
+            background: linear-gradient(145deg, #2d1b4e, #1a0a2e);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .tarot-card::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 6px;
+        }
+        
+        .card-1 { top: 10%; left: 5%; transform: rotate(-15deg); animation: cardFloat 4s ease-in-out infinite; }
+        .card-2 { top: 15%; right: 8%; transform: rotate(20deg); animation: cardFloat 5s ease-in-out infinite 0.5s; }
+        .card-3 { bottom: 20%; left: 8%; transform: rotate(10deg); animation: cardFloat 4.5s ease-in-out infinite 1s; }
+        .card-4 { bottom: 15%; right: 5%; transform: rotate(-25deg); animation: cardFloat 5.5s ease-in-out infinite 1.5s; }
+        
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+            50% { transform: translateY(-15px) rotate(var(--rot, 0deg)); }
+        }
+        
+        /* 主文字 */
+        .main-text {
+            text-align: center;
+            position: relative;
+        }
+        
+        .title-line {
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            line-height: 1.2;
+        }
+        
+        .line-1 {
+            background: linear-gradient(180deg, #ffd700 0%, #ffaa00 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        .line-2 {
+            background: linear-gradient(180deg, #fff8dc 0%, #ffd700 50%, #daa520 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+            animation: glow 3s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 40px rgba(255, 215, 0, 0.8)); }
+        }
+        
+        /* 装饰符号 */
+        .decoration {
+            font-size: 3rem;
+            margin: 20px 0;
+            animation: spin 10s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 神秘粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffd700, transparent);
+            border-radius: 50%;
+            animation: particleFloat 8s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-size: 0.9rem;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover, .back-btn:active {
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .tarot-card {
+                width: 60px;
+                height: 100px;
+                font-size: 1.5rem;
+            }
+            .symbol {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景层 -->
+    <div class="bg-image"></div>
+    <div class="overlay"></div>
+    
+    <!-- 闪烁星星 -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- 漂浮符号 -->
+    <div class="symbols" id="symbols"></div>
+    
+    <!-- 粒子效果 -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- 塔罗牌装饰 -->
+    <div class="cards-decoration">
+        <div class="tarot-card card-1">🌙</div>
+        <div class="tarot-card card-2">⭐</div>
+        <div class="tarot-card card-3">🔮</div>
+        <div class="tarot-card card-4">💎</div>
+    </div>
+    
+    <!-- 主内容 -->
+    <div class="container">
+        <div class="main-text">
+            <div class="decoration">✦</div>
+            <div class="title-line line-1">Money</div>
+            <div class="title-line line-2">and Rich</div>
+            <div class="decoration">✦</div>
+        </div>
+    </div>
+    
+    <!-- 返回按钮 -->
+    <a href="index.html" class="back-btn">← 返回</a>
+    
+    <script>
+        // 生成随机星星
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            star.style.animationDuration = (1.5 + Math.random()) + 's';
+            starsContainer.appendChild(star);
+        }
+        
+        // 生成漂浮符号
+        const symbolsContainer = document.getElementById('symbols');
+        const symbolChars = ['☽', '☾', '✦', '✧', '⚜', '❋', '✵', '✶'];
+        for (let i = 0; i < 15; i++) {
+            const symbol = document.createElement('div');
+            symbol.className = 'symbol';
+            symbol.textContent = symbolChars[Math.floor(Math.random() * symbolChars.length)];
+            symbol.style.left = Math.random() * 100 + '%';
+            symbol.style.top = Math.random() * 100 + '%';
+            symbol.style.animationDelay = Math.random() * 6 + 's';
+            symbol.style.animationDuration = (4 + Math.random() * 4) + 's';
+            symbolsContainer.appendChild(symbol);
+        }
+        
+        // 生成上升粒子
+        const particlesContainer = document.getElementById('particles');
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (5 + Math.random() * 5) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            particlesContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+        
+        setInterval(createParticle, 500);
+        
+        // 设置卡牌旋转角度变量
+        document.querySelectorAll('.tarot-card').forEach((card, index) => {
+            const rotations = [-15, 20, 10, -25];
+            card.style.setProperty('--rot', rotations[index] + 'deg');
+        });
+    </script>
+</body>
+</html>
